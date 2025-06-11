@@ -81,6 +81,7 @@ value_time : interval
 entity MuscleGroup {
 * muscleGroupId : uuid
 --
+* exerciseTemplateId : uuid <<FK>>
 name : varchar(255)
 }
 
