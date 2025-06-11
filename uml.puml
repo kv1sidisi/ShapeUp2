@@ -47,6 +47,8 @@ startDate : date
 
 entity ExerciseLibrary {
 * exerciseLibraryId : uuid
+--
+* user_id : uuid <<FK>>
 }
 
 entity ExerciseTemplate {
