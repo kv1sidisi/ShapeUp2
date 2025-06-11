@@ -1,6 +1,7 @@
 services:
   postgres:
     image: postgres:16.9-bullseye
+    container_name: postgres
     env_file:
       - .env
     ports:
@@ -21,6 +22,7 @@ services:
 
   flyway:
     image: flyway/flyway:11
+    container_name: flyway
     env_file:
       - .env
     command: migrate -target=${MIGRATION_VERSION}
