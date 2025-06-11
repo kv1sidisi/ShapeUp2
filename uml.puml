@@ -71,24 +71,11 @@ entity Set {
 --
 * workoutExerciseId : uuid <<FK>>
 setNumber : int
-reps : int
-}
-
-entity SetMeasurement {
-* setMeasurementId : uuid
---
-* setId : uuid <<FK>>
-* measurementId : uuid <<FK>>
-value : float
-}
-
-entity Measurement {
-* measurementId : uuid
---
-* exerciseTemplateId : uuid <<FK>>
-name : varchar(255)
-unit : varchar(255)
-type : varchar(255)
+rpe : decimal(2,1)
+notes : varchar
+reps : smallint
+value_numeric : float
+value_time : interval
 }
 
 entity MuscleGroup {
@@ -109,11 +96,7 @@ WorkoutExercise ||--o{ Set : includes
 
 ExerciseLibrary ||--o{ ExerciseTemplate : defines
 ExerciseTemplate ||--o{ WorkoutExercise : uses
-ExerciseTemplate ||--o{ Measurement : has
 ExerciseTemplate ||--|| MuscleGroup : has
-
-Set ||--|| SetMeasurement : contains
-Measurement ||--o{ SetMeasurement : used
 
 
 
