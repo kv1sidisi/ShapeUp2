@@ -2,7 +2,7 @@ services:
   postgres:
     image: postgres:16.9-bullseye
     env_file:
-      - database/.env
+      - .env
     ports:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
     environment:
@@ -22,7 +22,7 @@ services:
   flyway:
     image: flyway/flyway:11
     env_file:
-      - database/.env
+      - .env
     command: migrate -target=${MIGRATION_VERSION}
     environment:
       - FLYWAY_URL=jdbc:postgresql://postgres:${POSTGRES_PORT}/${POSTGRES_NAME}
