@@ -1,0 +1,118 @@
+@startuml
+
+entity User {
+* userId : uuid
+--
+login : varchar(255)
+birthDate : date
+photo : varchar(255)
+}
+
+entity UserCredentials {
+* userCredentialsId : uuid
+--
+* userId : uuid <<FK>>
+email : varchar(255)
+emailVerified : bool
+passwordHash : varchar(255)
+}
+
+entity Stats {
+* statsId : uuid
+--
+* userId : uuid <<FK>>
+}
+
+entity Stat {
+* statId : uuid
+--
+* statsId : uuid <<FK>>
+name : varchar(255)
+value : varchar(255)
+lastUpdate : date
+}
+
+
+
+
+entity Workout {
+* workoutId : uuid
+--
+* userId : uuid <<FK>>
+name : varchar(255)
+duration : time
+date : date
+}
+
+
+entity ExerciseLibrary {
+* exerciseLibraryId : uuid
+}
+
+entity ExerciseTemplate {
+* exerciseTemplateId : uuid
+--
+* exerciseLibraryId : uuid <<FK>>
+name : varchar(255)
+techniqueDescription : varchar(255)
+}
+
+entity WorkoutExercise {
+* workoutExerciseId : uuid
+--
+* workoutId : uuid <<FK>>
+* exerciseTemplateId : uuid <<FK>>
+}
+
+entity Set {
+* setId : uuid
+--
+* workoutExerciseId : uuid <<FK>>
+setNumber : int
+reps : int
+}
+
+entity SetMeasurement {
+* setMeasurementId : uuid
+--
+* setId : uuid <<FK>>
+* measurementId : uuid <<FK>>
+value : float
+}
+
+entity Measurement {
+* measurementId : uuid
+--
+* exerciseTemplateId : uuid <<FK>>
+name : varchar(255)
+unit : varchar(255)
+type : varchar(255)
+}
+
+entity MuscleGroup {
+* muscleGroupId : uuid
+--
+name : varchar(255)
+}
+
+
+User ||--|| UserCredentials : has
+User ||--o{ Workout : owns
+
+Stats ||--|| User : has
+Stats ||--o{ Stat : contains
+
+Workout ||--o{ WorkoutExercise : includes
+WorkoutExercise ||--o{ Set : includes
+
+ExerciseLibrary ||--o{ ExerciseTemplate : defines
+ExerciseTemplate ||--o{ WorkoutExercise : uses
+ExerciseTemplate ||--o{ Measurement : has
+ExerciseTemplate ||--|| MuscleGroup : has
+
+Set ||--|| SetMeasurement : contains
+Measurement ||--o{ SetMeasurement : used
+
+
+
+@enduml
