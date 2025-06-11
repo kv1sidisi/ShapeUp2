@@ -41,7 +41,7 @@ entity Workout {
 * userId : uuid <<FK>>
 name : varchar(255)
 duration : time
-date : date
+startDate : date
 }
 
 
